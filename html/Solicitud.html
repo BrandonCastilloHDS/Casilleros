@@ -9,16 +9,11 @@
 
       <script>
         document.addEventListener('DOMContentLoaded', function () {
-            const eleccion = document.getElementById('eleccion');
-
-            // Sección de Renovación
             const renovacionInput = document.getElementById('Renovacion');
             const lockerAnterior = document.getElementById('lockerAnterior');
             const botonRegistrar = document.getElementById('Registrar');
             const botonLimpiar = document.getElementById('Limpiar');
 
-
-            // Sección de Registro
             const registroInput = document.getElementById('Registro');
             const EleccionNombre = document.getElementById('EleccionNombre');
             const EleccionTelefono = document.getElementById('EleccionTelefono');
@@ -31,12 +26,22 @@
             const EleccionHorario = document.getElementById('EleccionHorario');
             const EleccionUsuario = document.getElementById('EleccionUsuario');
             const EleccionContraseña = document.getElementById('EleccionContraseña');
-        
-            // Mostrar/ocultar campo del casillero anterior cuando se selecciona "Renovación"
+
             renovacionInput.addEventListener('click', function () {
                 lockerAnterior.style.display = renovacionInput.checked ? 'block' : 'none';
                 botonRegistrar.style.display= renovacionInput.checked ? 'block' : 'none';
                 botonLimpiar.style.display = renovacionInput.checked ? 'block' : 'none';
+                mostrarCamposRegistro();
+            });
+
+            registroInput.addEventListener('click', function () {
+                botonRegistrar.style.display = 'block';
+                botonLimpiar.style.display = 'block';
+                lockerAnterior.style.display = 'none';
+                mostrarCamposRegistro();
+            });
+
+            function mostrarCamposRegistro() {
                 EleccionNombre.style.display = 'block';
                 EleccionTelefono.style.display = 'block';
                 PrimerApellido.style.display = 'block';
@@ -48,39 +53,24 @@
                 EleccionHorario.style.display = 'block';
                 EleccionUsuario.style.display = 'block';
                 EleccionContraseña.style.display = 'block';
-            });
-          
-            // Mostrar/ocultar campo del nombre cuando se selecciona "Registro"
-            registroInput.addEventListener('click', function () {
-                EleccionNombre.style.display = registroInput.checked ? 'block' : 'none';
-                EleccionTelefono.style.display = registroInput.checked ? 'block' : 'none';
-                PrimerApellido.style.display = registroInput.checked ? 'block' : 'none';
-                SegundoApellido.style.display = registroInput.checked ? 'block' : 'none';
-                EleccionCorreo.style.display = registroInput.checked ? 'block' : 'none';
-                EleccionBoleta.style.display = registroInput.checked ? 'block' : 'none';
-                EleccionEstatura.style.display = registroInput.checked ? 'block' : 'none';
-                EleccionCredencial.style.display = registroInput.checked ? 'block' : 'none';
-                EleccionHorario.style.display = registroInput.checked ? 'block' : 'none';
-                EleccionUsuario.style.display = registroInput.checked ? 'block' : 'none';
-                EleccionContraseña.style.display = registroInput.checked ? 'block' : 'none';
-                botonRegistrar.style.display= registroInput.checked ? 'block' : 'none';
-                botonLimpiar.style.display = registroInput.checked ? 'block' : 'none';
-                lockerAnterior.style.display = 'none';
-            });
+            }
         });
     </script>
 
-      <style>
-          #eleccion{
-              margin-top: 20px;
-              margin-left: 15%;
-          
-          }
-      </style>
+    <style>
+      #eleccion {
+          margin-top: 20px;
+          margin-left: 15%;
+      }
+      .mb-3 {
+          margin-bottom: 15px;
+      }
+    </style>  
   </head>
   <body>
-        <div id="eleccion" >
+        <div id="eleccion" class="container mt-4">
           <h2>Solicitud de Casillero</h2>
+          
           <div class="form-check">
               <input class="form-check-input" type="radio" name="tipoSolicitud" id="Registro" value="Registro">
               <label class="form-check-label" for="Registro">
@@ -92,29 +82,29 @@
               <label class="form-check-label" for="Renovacion" checked>
                 Solicitud de Renovación
               </label>
+            
+            
             </div>
             <div id="lockerAnterior" class="mb-3" style="display: none;">
               <label for="CasilleroAnterior" class="form-check-label">Número de Casillero Anterior</label>
               <input type="text" class="form-control" id="CasilleroAnterior" placeholder="Ingrese el número de su Casillero Anterior">
             </div>
 
+              <div id="EleccionNombre" class="mb-3" style="display: none;">
+                <label for="Nombre" class="form-label">Nombre</label>
+                <input type="text" class="form-control" id="Nombre" placeholder="Ingresa tu nombre">
+              </div>
 
-            <!--seccion para Registro-->
-            <div id="EleccionNombre" class="mb-3" style="display: none;">
-              <label for="Nombre" class="form-label">Nombre</label>
-              <input type="text" class="form-control" id="Nombre" placeholder="Ingresa tu nombre">
-            </div>
+              <div id="PrimerApellido" class="mb-3" style="display: none;">
+                <label for="ApellidoPaterno" class="form-label">Primer Apellido</label>
+                <input type="text" class="form-control" id="ApellidoPaterno" placeholder="Ingresa tu Primer Apellido">
+              </div>
 
-            <div id="PrimerApellido" class="mb-3" style="display: none;">
-              <label for="ApellidoPaterno" class="form-label">Primer Apellido</label>
-              <input type="text" class="form-control" id="ApellidoPaterno" placeholder="Ingresa tu Primer Apellido">
-            </div>
-
-            <div id="SegundoApellido" class="mb-3" style="display: none;">
-              <label for="ApellidoMaterno" class="form-label">Nombre</label>
-              <input type="text" class="form-control" id="ApellidoMaterno" placeholder="Ingresa tu Segundo Apellido">
-            </div>
-
+              <div id="SegundoApellido" class="mb-3" style="display: none;">
+                <label for="ApellidoMaterno" class="form-label">Segundo Apellido</label>
+                <input type="text" class="form-control" id="ApellidoMaterno" placeholder="Ingresa tu Segundo Apellido">
+              </div>
+            
             <div id="EleccionTelefono" class="mb-3" style="display: none;">
               <label for="Telefono" class="form-label">Telefono</label>
               <input type="number" class="form-control" id="Telefono" placeholder="55...">
@@ -157,6 +147,6 @@
 
             <button type="submit" class="btn btn-primary" id="Registrar"  style="display: none;">Registrar Solicitud</button>
             <button type="reset" class="btn btn-warning" id="Limpiar"  style="display: none;">Limpiar</button>
-        </div>
+          </div>
   </body>
   </html>
