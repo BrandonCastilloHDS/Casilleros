@@ -1,9 +1,9 @@
   <!DOCTYPE html>
-  <html lang="en">
+  <html lang="es">
   <head>
       <meta charset="UTF-8">
       <meta name="viewport" content="width=device-width, initial-scale=1.0">
-      <title>Solicitud</title>
+      <title>.::Solicitud de Casillero::.</title>
       <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
       <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous"></script>
 
@@ -68,6 +68,7 @@
     </style>  
   </head>
   <body>
+    <!--NAVBAR-->
     <nav class="navbar navbar-expand-lg bg-body-tertiary">
       <div class="container-fluid">
         <a class="navbar-brand" href="PagPrincipal.html"><img src="https://www.escom.ipn.mx/images/logoESCOM2x.png" alt="Logo ESCOM" width="50%"></a>
@@ -103,7 +104,7 @@
     </nav>
 
     <!--FORMULARIO-->
-    <div class="container mt-4">
+    <div class="container mt-4" id="Formulario">
       <h2>Solicitud de Casillero</h2>
         <div class="mb-3">
           <label class="form-label">Tipo de Solicitud</label>
@@ -214,11 +215,92 @@
         <div class="row mt-4">
           <div class="col d-flex justify-content-between">
             <button type="submit" class="btn btn-primary" id="Registrar"  style="display: none;">Registrar Solicitud</button>
-            <button type="reset" class="btn btn-warning" id="Limpiar"  style="display: none;">Limpiar</button>
+            <button type="reset" class="btn btn-warning" id="Limpiar"  style="display: none;" onclick="LimpiarFormulario();">Limpiar</button>
           </div>
         </div>
     </div>
+    <script>
+      function LimpiarFormulario() {
+        const inputs = document.querySelectorAll('#Formulario input');
+        const esRenovacion = document.getElementById('Renovacion').checked;
+        const esRegistro = document.getElementById('Registro').checked;
+        
+        inputs.forEach(input =>{
+          input.value=''  //asignamos cadena vacia a cada elemento
+          input.classList.remove('is-valid', 'is-invalid');
+        });
 
+        //arreglo con todos los IDs de todos los campos 
+        const camposOcultos = [
+        'lockerAnterior',          // Campo para número de casillero anterior
+        'EleccionNombre',          // Campo para nombre
+        'EleccionTelefono',        // Campo para teléfono
+        'PrimerApellido',          // Campo para primer apellido
+        'SegundoApellido',         // Campo para segundo apellido
+        'EleccionCorreo',          // Campo para correo
+        'EleccionBoleta',          // Campo para boleta
+        'EleccionEstatura',        // Campo para estatura
+        'EleccionCredencial',      // Campo para subir credencial
+        'EleccionHorario',         // Campo para subir horario
+        'EleccionUsuario',         // Campo para usuario
+        'EleccionContraseña'       // Campo para contraseña
+        ]
+
+        if(esRenovacion){
+          const lockerAnterior= document.getElementById('lockerAnterior');
+          if(lockerAnterior){
+            lockerAnterior.style.display='block'
+          }
+          MostrarCamposRegistro();
+
+          document.getElementById('Registrar').style.display = 'block';
+          document.getElementById('Limpiar').style.display = 'block';
+        }
+        else if(esRegistro){
+          MostrarCamposRegistro();
+          document.getElementById('Registrar').style.display = 'block';
+          document.getElementById('Limpiar').style.display = 'block';
+        }
+        else{
+            camposOcultos.forEach(campo=>{
+            const elemento= document.getElementById(campo);
+            if (elemento){
+              elemento.style.display= 'none';
+            }
+          });
+          document.getElementById('Registrar').style.display = 'none';
+          document.getElementById('Limpiar').style.display = 'none';
+        }
+      };
+
+      function MostrarCamposRegistro(){
+        const CamposRegistros=[        'EleccionNombre',          // Campo para nombre
+        'EleccionTelefono',        // Campo para teléfono
+        'PrimerApellido',          // Campo para primer apellido
+        'SegundoApellido',         // Campo para segundo apellido
+        'EleccionCorreo',          // Campo para correo
+        'EleccionBoleta',          // Campo para boleta
+        'EleccionEstatura',        // Campo para estatura
+        'EleccionCredencial',      // Campo para subir credencial
+        'EleccionHorario',         // Campo para subir horario
+        'EleccionUsuario',         // Campo para usuario
+        'EleccionContraseña'       // Campo para contraseña
+        ]
+        
+        CamposRegistros.forEach(campo =>{
+          const elementoVisible= document.getElementById(CamposRegistros);
+          if(elementoVisible){
+            elementoVisible.style.display= 'block'
+          }
+        })
+      };
+    </script>
+
+
+
+
+
+    <!--Validaciones-->
     <script>
       //objeto para trabajar con validaciones
       const validaciones = {
@@ -260,10 +342,36 @@
           }
       };
       
-      document.addEventListener('DOMContentLoaded', function (){
-          let inputs = document.querySelectorAll('input');
-          
-      });
+    // Función para validar un campo
+    function validarCampo(campo, validacion) {
+        const valor = campo.value.trim();
+        const errorDiv = campo.nextElementSibling; // Div para el mensaje de error
+        
+        if (!validacion.regex.test(valor)) {
+            campo.classList.add('is-invalid');
+            campo.classList.remove('is-valid');
+            errorDiv.textContent = validacion.mensaje;
+            return false;
+        } else {
+            campo.classList.remove('is-invalid');
+            campo.classList.add('is-valid');
+            errorDiv.textContent = '';
+            return true;
+        }
+    }
+
+    // Función para validar todos los campos
+    function validarCAmpo(){
+      const valor= input.value;
+      const validacion= validaciones[tipo];
+
+      if(!validacion){
+        console.error('No existe validacion para el campo', tipo);
+        return false;
+      }
+
+      const esValido=  validacion.regex.test(valor);
+    }
     </script>
   </body>
   </html>
