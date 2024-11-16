@@ -10,29 +10,62 @@
       <script>
         document.addEventListener('DOMContentLoaded', function () {
             const eleccion = document.getElementById('eleccion');
-            
+
             // Sección de Renovación
-            const renovacionInput = document.getElementById('Renovacion'); 
-            const lockerAnterior = document.getElementById('lockerAnterior'); 
+            const renovacionInput = document.getElementById('Renovacion');
+            const lockerAnterior = document.getElementById('lockerAnterior');
+            const botonRegistrar = document.getElementById('Registrar');
+            const botonLimpiar = document.getElementById('Limpiar');
+
 
             // Sección de Registro
-            const registroInput = document.getElementById('Registro'); 
-            const EleccionNombre = document.getElementById('EleccionNombre'); 
-            const telefonoRegistro = document.getElementById('TelefonoRegistro');
-
-
+            const registroInput = document.getElementById('Registro');
+            const EleccionNombre = document.getElementById('EleccionNombre');
+            const EleccionTelefono = document.getElementById('EleccionTelefono');
+            const PrimerApellido = document.getElementById('PrimerApellido');
+            const SegundoApellido = document.getElementById('SegundoApellido');
+            const EleccionCorreo = document.getElementById('EleccionCorreo');
+            const EleccionBoleta = document.getElementById('EleccionBoleta');
+            const EleccionEstatura = document.getElementById('EleccionEstatura');
+            const EleccionCredencial = document.getElementById('EleccionCredencial');
+            const EleccionHorario = document.getElementById('EleccionHorario');
+            const EleccionUsuario = document.getElementById('EleccionUsuario');
+            const EleccionContraseña = document.getElementById('EleccionContraseña');
+        
             // Mostrar/ocultar campo del casillero anterior cuando se selecciona "Renovación"
             renovacionInput.addEventListener('click', function () {
-                lockerAnterior.style.display = renovacionInput.checked ? 'block' : 'none'; 
-                EleccionNombre.style.display = 'none';
-                telefonoRegistro.style.display = 'none';
+                lockerAnterior.style.display = renovacionInput.checked ? 'block' : 'none';
+                botonRegistrar.style.display= renovacionInput.checked ? 'block' : 'none';
+                botonLimpiar.style.display = renovacionInput.checked ? 'block' : 'none';
+                EleccionNombre.style.display = 'block';
+                EleccionTelefono.style.display = 'block';
+                PrimerApellido.style.display = 'block';
+                SegundoApellido.style.display = 'block';
+                EleccionCorreo.style.display = 'block';
+                EleccionBoleta.style.display = 'block';
+                EleccionEstatura.style.display = 'block';
+                EleccionCredencial.style.display = 'block';
+                EleccionHorario.style.display = 'block';
+                EleccionUsuario.style.display = 'block';
+                EleccionContraseña.style.display = 'block';
             });
-
+          
             // Mostrar/ocultar campo del nombre cuando se selecciona "Registro"
             registroInput.addEventListener('click', function () {
                 EleccionNombre.style.display = registroInput.checked ? 'block' : 'none';
-                telefonoRegistro.style.display = registroInput.checked ? 'block' : 'none';
-                lockerAnterior.style.display = 'none'; // Ocultar la sección de casillero
+                EleccionTelefono.style.display = registroInput.checked ? 'block' : 'none';
+                PrimerApellido.style.display = registroInput.checked ? 'block' : 'none';
+                SegundoApellido.style.display = registroInput.checked ? 'block' : 'none';
+                EleccionCorreo.style.display = registroInput.checked ? 'block' : 'none';
+                EleccionBoleta.style.display = registroInput.checked ? 'block' : 'none';
+                EleccionEstatura.style.display = registroInput.checked ? 'block' : 'none';
+                EleccionCredencial.style.display = registroInput.checked ? 'block' : 'none';
+                EleccionHorario.style.display = registroInput.checked ? 'block' : 'none';
+                EleccionUsuario.style.display = registroInput.checked ? 'block' : 'none';
+                EleccionContraseña.style.display = registroInput.checked ? 'block' : 'none';
+                botonRegistrar.style.display= registroInput.checked ? 'block' : 'none';
+                botonLimpiar.style.display = registroInput.checked ? 'block' : 'none';
+                lockerAnterior.style.display = 'none';
             });
         });
     </script>
@@ -47,7 +80,7 @@
   </head>
   <body>
         <div id="eleccion" >
-          <h2>Tipo de Solicitud</h2>
+          <h2>Solicitud de Casillero</h2>
           <div class="form-check">
               <input class="form-check-input" type="radio" name="tipoSolicitud" id="Registro" value="Registro">
               <label class="form-check-label" for="Registro">
@@ -73,25 +106,57 @@
             </div>
 
             <div id="PrimerApellido" class="mb-3" style="display: none;">
-              <label for="PrimerA" class="form-label">Nombre</label>
-              <input type="text" class="form-control" id="Nombre" placeholder="Ingresa tu nombre">
+              <label for="ApellidoPaterno" class="form-label">Primer Apellido</label>
+              <input type="text" class="form-control" id="ApellidoPaterno" placeholder="Ingresa tu Primer Apellido">
             </div>
 
-            <div id="EleccionNombre" class="mb-3" style="display: none;">
-              <label for="Nombre" class="form-label">Nombre</label>
-              <input type="text" class="form-control" id="Nombre" placeholder="Ingresa tu nombre">
+            <div id="SegundoApellido" class="mb-3" style="display: none;">
+              <label for="ApellidoMaterno" class="form-label">Nombre</label>
+              <input type="text" class="form-control" id="ApellidoMaterno" placeholder="Ingresa tu Segundo Apellido">
             </div>
 
-            <div id="TelefonoRegistro" class="mb-3" style="display: none;">
+            <div id="EleccionTelefono" class="mb-3" style="display: none;">
               <label for="Telefono" class="form-label">Telefono</label>
               <input type="number" class="form-control" id="Telefono" placeholder="55...">
             </div>
 
+            <div id="EleccionCorreo" class="mb-3" style="display: none;">
+              <label for="Correo" class="form-label">Correo Institucional</label>
+              <input type="email" class="form-control" id="Correo" placeholder="abc@alumno.ipn.mx">
+            </div>
 
+            <div id="EleccionBoleta" class="mb-3" style="display: none;">
+              <label for="Boleta" class="form-label">Boleta</label>
+              <input type="number" class="form-control" id="Boleta" placeholder="2018...">
+            </div>
 
+            <div id="EleccionEstatura" class="mb-3" style="display: none;">
+              <label for="Estatura" class="form-label">Estatura</label>
+              <input type="number" class="form-control" id="Estatura" placeholder="1.70">
+            </div>
 
+            <div id="EleccionCredencial" class="mb-3" style="display: none;">
+              <label for="Credencial" class="form-label">Credencial Vigente del IPN (PDF)</label>
+              <input type="file" class="form-control" id="Credencial" placeholder="Sube tu Credencial">
+            </div>
 
+            <div id="EleccionHorario" class="mb-3" style="display: none;">
+              <label for="Horario" class="form-label">Horario de Entrega</label>
+              <input type="file" class="form-control" id="Horario" placeholder="Sube tu horario del SAES">
+            </div>
 
+            <div id="EleccionUsuario" class="mb-3" style="display: none;">
+              <label for="Usuario" class="form-label">Usuario</label>
+              <input type="text" class="form-control" id="Usuario" placeholder="Ingresa tu Usuario">
+            </div>
+
+            <div id="EleccionContraseña" class="mb-3" style="display: none;">
+              <label for="Contraseña" class="form-label">Contraseña</label>
+              <input type="password" class="form-control" id="Contraseña" placeholder="Ingresa tu Contraseña">
+            </div>
+
+            <button type="submit" class="btn btn-primary" id="Registrar"  style="display: none;">Registrar Solicitud</button>
+            <button type="reset" class="btn btn-warning" id="Limpiar"  style="display: none;">Limpiar</button>
         </div>
   </body>
   </html>
