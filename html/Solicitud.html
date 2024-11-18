@@ -210,7 +210,7 @@
 
         <div class="row mt-4">
           <div class="col d-flex justify-content-between">
-            <button type="submit" class="btn btn-primary" id="Registrar"  style="display: none;">Registrar Solicitud</button>
+            <button type="button" class="btn btn-primary" id="Registrar"  style="display: none;" onclick="subida();">Registrar Solicitud</button>
             <button type="reset" class="btn btn-warning" id="Limpiar"  style="display: none;" onclick="LimpiarFormulario();">Limpiar</button>
           </div>
         </div>
@@ -293,82 +293,115 @@
       };
     </script>
 
-
-
-
-
     <!--Validaciones-->
     <script>
-      //objeto para trabajar con validaciones
-      const validaciones = {
-          Nombre:{
-              regex: /^[a-zA-Z\s]{3,30}$/,
-              mensaje: "El nombre debe tener entre 3 y 30 caracteres"
-          },
-          PrimerApellido:{
-              regex: /^[a-zA-Z\s]{3,30}$/,
-              mensaje: "El apellido debe tener entre 3 y 30 caracteres"
-          },
-          SegundoApellido:{
-              regex: /^[a-zA-Z\s]{3,30}$/,
-              mensaje: "El apellido debe tener entre 3 y 30 caracteres"
-          },
-          Telefono:{
-              regex: /^[0-9]{10}$/,
-              mensaje: "El telefono debe tener 10 digitos"
-          },
-          EleccionCorreo:{
-              regex: /^[a-zA-Z0-9]+@alumno\.ipn\.mx$/,
-              mensaje: "El correo debe tener el formato"
-          },
-          EleccionBoleta:{
-              regex: /^20[0-9]{8}$/,
-              mensaje: "La boleta debe tener el formato 20XXXXXXXX"
-          },
-          EleccionEstatura:{
-              regex: /^[0-2]\.[0-9]{2}$/,
-              mensaje: "La estatura debe tener el formato X.XX"
-          },
-          EleccionUsuario:{
-              regex: /^[a-zA-Z0-9]{6,20}$/,
-              mensaje: "El usuario debe tener entre 6 y 20 caracteres"
-          },
-          EleccionContraseña:{
-              regex: /^[a-zA-Z0-9]{6,20}$/,
-              mensaje: "La contraseña debe tener entre 6 y 20 caracteres"
-          }
-      };
-      
-    // Función para validar un campo
-    function validarCampo(campo, validacion) {
-        const valor = campo.value.trim();
-        const errorDiv = campo.nextElementSibling; // Div para el mensaje de error
-        
-        if (!validacion.regex.test(valor)) {
-            campo.classList.add('is-invalid');
-            campo.classList.remove('is-valid');
-            errorDiv.textContent = validacion.mensaje;
-            return false;
-        } else {
-            campo.classList.remove('is-invalid');
-            campo.classList.add('is-valid');
-            errorDiv.textContent = '';
-            return true;
+      document.addEventListener('DOMContentLoaded', function(){
+        const validaciones= {
+          Nombre: {
+            regex: /^[a-zA-ZáéíóúÁÉÍÓÚ\s]{3,30}$/,
+            mensaje: "El nombre debe tener entre 3 y 30 caracteres"
+        },
+        ApellidoPaterno: {
+            regex: /^[a-zA-ZáéíóúÁÉÍÓÚ\s]{3,30}$/,
+            mensaje: "El apellido debe tener entre 3 y 30 caracteres"
+        },
+        ApellidoMaterno: {
+            regex: /^[a-zA-ZáéíóúÁÉÍÓÚ\s]{3,30}$/,
+            mensaje: "El apellido debe tener entre 3 y 30 caracteres"
+        },
+        Telefono: {
+            regex: /^[0-9]{10}$/,
+            mensaje: "El teléfono debe tener exactamente 10 dígitos"
+        },
+        Correo: {
+            regex: /^[a-zA-Z0-9._%+-]+@alumno\.ipn\.mx$/,
+            mensaje: "El correo debe ser del dominio alumno.ipn.mx"
+        },
+        Boleta: {
+            regex: /^20[0-9]{8}$/,
+            mensaje: "La boleta debe tener el formato 20XXXXXXXX"
+        },
+        Estatura: {
+            regex: /^[0-2]\.[0-9]{2}$/,
+            mensaje: "La estatura debe tener el formato X.XX"
+        },
+        Usuario: {
+            regex: /^[a-zA-Z0-9áéíóúÁÉÍÓÚ]{3,20}$/,
+            mensaje: "El usuario debe tener entre 3 y 20 caracteres alfanuméricos"
+        },
+        Contraseña: {
+            regex: /^[a-zA-Z0-9áéíóúÁÉÍÓÚ]{2,20}$/,
+            mensaje: "La contraseña debe tener entre 2 y 20 caracteres"
         }
-    }
+        };
 
-    // Función para validar todos los campos
-    function validarCAmpo(){
-      const valor= input.value;
-      const validacion= validaciones[tipo];
+        function validarCampo(campo){
+        //validamos cada campo
+        const tipo = campo.id;
+        const valor = campo.value.trim(); //elimina espacios en blanco al inicio y al final
+        const validacion=  validaciones[tipo]; 
 
-      if(!validacion){
-        console.error('No existe validacion para el campo', tipo);
-        return false;
+        if(!validacion){
+          return false; //si no hay validación, no hacemos nada
+        }
+
+        const esValido = validacion.regex.test(valor);
+        const errorDiv= campo.nextElementSibling; //obtenemos el siguiente elemento del DOM
+
+        if(esValido){
+          campo.classList.remove('is-invalid');
+          campo.classList.add('is-valid');
+          errorDiv.textContent= ''; //limpiamos el mensaje de error
+        }
+        else{
+          campo.classList.remove('is-valid');
+          campo.classList.add('is-invalid');
+          errorDiv.textContent= validacion.mensaje;
+        }
+        return esValido;
       }
 
-      const esValido=  validacion.regex.test(valor);
-    }
+      //validamos todos los campos
+      function validarFormulario(){
+        const campos = document.querySelectorAll('#Formulario input');
+        let esValido = true;
+
+        campos.forEach(campo=>{
+          const resultado = validarCampo(campo);
+          if(!resultado){
+            esValido = false;
+          }
+        });
+        return esValido;
+      }
+
+      //agregamos los eventos a los campos
+      const inputs = document.querySelectorAll('#Formulario input');
+
+      inputs.forEach(input=>{
+        input.addEventListener('input', ()=>validarCampo(input));
+      });
+
+      //validamos el formulario al intentar enviarlo
+      const formulario = document.querySelector('#Formulario');
+      formulario.addEventListener('submit', function(event){
+        if(!validarFormulario()){
+          event.preventDefault();
+          alert('Hay errores en el formulario');
+        }
+      })
+
+      //finalmente agregamos la funcion para meter en el onclick del botton
+      function subida(){
+        const formularioValido = validarFormulario();
+        if(!formularioValido){
+          alert('Hay errores en el formulario');
+          event.preventDefault(); //no enviadmos el formulario si hay errores
+        }else{
+          alert('Formulario válido, enviando datos');
+        }
+      }
+      });
     </script>
   </body>
   </html>
